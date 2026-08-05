@@ -1,25 +1,50 @@
 {
     "case_id": "EC_006",
-    "policy_version": "EC_POLICY_V1",
     "assessment": {
         "primary_issue": "valid_split_payment",
         "case_status": "no_action",
-        "root_cause": {
-            "code": "MULTIPLE_PAYMENTS_RECONCILED",
-            "responsible_parties": []
-        }
+        "confidence": 1.0
     },
-    "resolution": {
-        "recommended_refund_brl": 0.0,
-        "actions": [
-            "explain_valid_split_payment"
+    "affected_entities": {
+        "order_ids": [
+            "fe51b7fac3bea42115fa1c3b8973cba7"
         ],
-        "explanation": "Order has 2 split payments totaling 44.38 BRL matching item+freight total (44.38 BRL) within 0.10 BRL tolerance."
-    },
-    "evidence": {
-        "evidence_ids": [
-            "payment_row:fe51b7fac3bea42115fa1c3b8973cba7:2:voucher:1.76",
-            "payment_row:fe51b7fac3bea42115fa1c3b8973cba7:1:voucher:42.62"
+        "item_ids": [
+            "fe51b7fac3bea42115fa1c3b8973cba7:1"
+        ],
+        "seller_ids": [
+            "85d9eb9ddc5d00ca9336a2219c97bb13"
+        ],
+        "payment_ids": [
+            "fe51b7fac3bea42115fa1c3b8973cba7:1",
+            "fe51b7fac3bea42115fa1c3b8973cba7:2"
         ]
-    }
+    },
+    "root_cause_analysis": {
+        "ranked_causes": [
+            {
+                "cause_code": "MULTIPLE_PAYMENTS_RECONCILED",
+                "rank": 1
+            }
+        ],
+        "responsible_parties": []
+    },
+    "evidence_ids": [
+        "order:fe51b7fac3bea42115fa1c3b8973cba7",
+        "item:fe51b7fac3bea42115fa1c3b8973cba7:1",
+        "payment:fe51b7fac3bea42115fa1c3b8973cba7:1",
+        "payment:fe51b7fac3bea42115fa1c3b8973cba7:2",
+        "seller:85d9eb9ddc5d00ca9336a2219c97bb13",
+        "policy:MULTIPLE_PAYMENTS_RECONCILED"
+    ],
+    "financial_resolution": {
+        "currency": "BRL",
+        "item_total_brl": 31.9,
+        "freight_total_brl": 12.48,
+        "payment_total_brl": 44.38,
+        "recommended_refund_brl": 0.0
+    },
+    "resolution_actions": [
+        "explain_valid_split_payment"
+    ]
 }

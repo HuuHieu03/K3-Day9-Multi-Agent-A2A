@@ -1,26 +1,52 @@
 {
     "case_id": "EC_030",
-    "policy_version": "EC_POLICY_V1",
     "assessment": {
         "primary_issue": "valid_split_payment",
         "case_status": "no_action",
-        "root_cause": {
-            "code": "MULTIPLE_PAYMENTS_RECONCILED",
-            "responsible_parties": []
-        }
+        "confidence": 1.0
     },
-    "resolution": {
-        "recommended_refund_brl": 0.0,
-        "actions": [
-            "explain_valid_split_payment"
+    "affected_entities": {
+        "order_ids": [
+            "405be8487a7fde1db0bc31ad6b08050a"
         ],
-        "explanation": "Order has 3 split payments totaling 25.84 BRL matching item+freight total (25.84 BRL) within 0.10 BRL tolerance."
-    },
-    "evidence": {
-        "evidence_ids": [
-            "payment_row:405be8487a7fde1db0bc31ad6b08050a:2:voucher:8.89",
-            "payment_row:405be8487a7fde1db0bc31ad6b08050a:1:voucher:8.89",
-            "payment_row:405be8487a7fde1db0bc31ad6b08050a:3:voucher:8.06"
+        "item_ids": [
+            "405be8487a7fde1db0bc31ad6b08050a:1"
+        ],
+        "seller_ids": [
+            "cfb1a033743668a192316f3c6d1d2671"
+        ],
+        "payment_ids": [
+            "405be8487a7fde1db0bc31ad6b08050a:1",
+            "405be8487a7fde1db0bc31ad6b08050a:2",
+            "405be8487a7fde1db0bc31ad6b08050a:3"
         ]
-    }
+    },
+    "root_cause_analysis": {
+        "ranked_causes": [
+            {
+                "cause_code": "MULTIPLE_PAYMENTS_RECONCILED",
+                "rank": 1
+            }
+        ],
+        "responsible_parties": []
+    },
+    "evidence_ids": [
+        "order:405be8487a7fde1db0bc31ad6b08050a",
+        "item:405be8487a7fde1db0bc31ad6b08050a:1",
+        "payment:405be8487a7fde1db0bc31ad6b08050a:1",
+        "payment:405be8487a7fde1db0bc31ad6b08050a:2",
+        "payment:405be8487a7fde1db0bc31ad6b08050a:3",
+        "seller:cfb1a033743668a192316f3c6d1d2671",
+        "policy:MULTIPLE_PAYMENTS_RECONCILED"
+    ],
+    "financial_resolution": {
+        "currency": "BRL",
+        "item_total_brl": 15.9,
+        "freight_total_brl": 9.94,
+        "payment_total_brl": 25.84,
+        "recommended_refund_brl": 0.0
+    },
+    "resolution_actions": [
+        "explain_valid_split_payment"
+    ]
 }

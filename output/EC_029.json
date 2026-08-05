@@ -1,37 +1,57 @@
 {
     "case_id": "EC_029",
-    "policy_version": "EC_POLICY_V1",
     "assessment": {
         "primary_issue": "late_delivery_seller",
         "case_status": "action_required",
-        "root_cause": {
-            "code": "SELLER_HANDOFF_AFTER_LIMIT",
-            "responsible_parties": [
-                {
-                    "party_type": "seller",
-                    "party_id": "88460e8ebdecbfecb5f9601833981930"
-                }
-            ]
-        }
+        "confidence": 1.0
     },
-    "resolution": {
-        "recommended_refund_brl": 42.51,
-        "actions": [
-            "refund_freight"
+    "affected_entities": {
+        "order_ids": [
+            "5c932e0a181410b67c77daaed30991af"
         ],
-        "explanation": "Order delivered late to customer due to seller 88460e8ebdecbfecb5f9601833981930 handoff after shipping limit date."
-    },
-    "evidence": {
-        "evidence_ids": [
-            "order_timestamp:5c932e0a181410b67c77daaed30991af:order_delivered_customer_date:2018-03-29 18:12:36",
-            "order_timestamp:5c932e0a181410b67c77daaed30991af:order_estimated_delivery_date:2018-03-27 00:00:00",
-            "order_timestamp:5c932e0a181410b67c77daaed30991af:order_delivered_carrier_date:2018-03-23 20:38:44",
-            "order_item_seller:5c932e0a181410b67c77daaed30991af:1:88460e8ebdecbfecb5f9601833981930",
-            "shipping_limit:5c932e0a181410b67c77daaed30991af:1:2018-03-11 23:30:24",
-            "order_item_seller:5c932e0a181410b67c77daaed30991af:2:88460e8ebdecbfecb5f9601833981930",
-            "shipping_limit:5c932e0a181410b67c77daaed30991af:2:2018-03-11 23:30:24",
-            "order_item_seller:5c932e0a181410b67c77daaed30991af:3:88460e8ebdecbfecb5f9601833981930",
-            "shipping_limit:5c932e0a181410b67c77daaed30991af:3:2018-03-11 23:30:24"
+        "item_ids": [
+            "5c932e0a181410b67c77daaed30991af:1",
+            "5c932e0a181410b67c77daaed30991af:2",
+            "5c932e0a181410b67c77daaed30991af:3"
+        ],
+        "seller_ids": [
+            "88460e8ebdecbfecb5f9601833981930"
+        ],
+        "payment_ids": [
+            "5c932e0a181410b67c77daaed30991af:1"
         ]
-    }
+    },
+    "root_cause_analysis": {
+        "ranked_causes": [
+            {
+                "cause_code": "SELLER_HANDOFF_AFTER_LIMIT",
+                "rank": 1
+            }
+        ],
+        "responsible_parties": [
+            {
+                "party_type": "seller",
+                "party_id": "88460e8ebdecbfecb5f9601833981930"
+            }
+        ]
+    },
+    "evidence_ids": [
+        "order:5c932e0a181410b67c77daaed30991af",
+        "item:5c932e0a181410b67c77daaed30991af:1",
+        "item:5c932e0a181410b67c77daaed30991af:2",
+        "item:5c932e0a181410b67c77daaed30991af:3",
+        "payment:5c932e0a181410b67c77daaed30991af:1",
+        "seller:88460e8ebdecbfecb5f9601833981930",
+        "policy:SELLER_HANDOFF_AFTER_LIMIT"
+    ],
+    "financial_resolution": {
+        "currency": "BRL",
+        "item_total_brl": 449.7,
+        "freight_total_brl": 42.51,
+        "payment_total_brl": 492.21,
+        "recommended_refund_brl": 42.51
+    },
+    "resolution_actions": [
+        "refund_freight"
+    ]
 }

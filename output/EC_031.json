@@ -1,33 +1,53 @@
 {
     "case_id": "EC_031",
-    "policy_version": "EC_POLICY_V1",
     "assessment": {
         "primary_issue": "late_delivery_logistics",
         "case_status": "action_required",
-        "root_cause": {
-            "code": "CARRIER_DELIVERED_AFTER_ESTIMATE",
-            "responsible_parties": [
-                {
-                    "party_type": "logistics_provider",
-                    "party_id": "LOGISTICS_PROVIDER"
-                }
-            ]
-        }
+        "confidence": 1.0
     },
-    "resolution": {
-        "recommended_refund_brl": 7.44,
-        "actions": [
-            "refund_freight"
+    "affected_entities": {
+        "order_ids": [
+            "4274ff4a5df607e75b32b80e2f8eda3f"
         ],
-        "explanation": "Order delivered late to customer by logistics provider while seller handed off on or before shipping limit date."
-    },
-    "evidence": {
-        "evidence_ids": [
-            "order_timestamp:4274ff4a5df607e75b32b80e2f8eda3f:order_delivered_customer_date:2018-05-10 19:36:52",
-            "order_timestamp:4274ff4a5df607e75b32b80e2f8eda3f:order_estimated_delivery_date:2018-05-08 00:00:00",
-            "order_timestamp:4274ff4a5df607e75b32b80e2f8eda3f:order_delivered_carrier_date:2018-05-03 12:50:00",
-            "order_item_seller:4274ff4a5df607e75b32b80e2f8eda3f:1:88ae906ea2acf6971f26c3e8b7cb4357",
-            "shipping_limit:4274ff4a5df607e75b32b80e2f8eda3f:1:2018-05-04 14:55:24"
+        "item_ids": [
+            "4274ff4a5df607e75b32b80e2f8eda3f:1"
+        ],
+        "seller_ids": [
+            "88ae906ea2acf6971f26c3e8b7cb4357"
+        ],
+        "payment_ids": [
+            "4274ff4a5df607e75b32b80e2f8eda3f:1"
         ]
-    }
+    },
+    "root_cause_analysis": {
+        "ranked_causes": [
+            {
+                "cause_code": "CARRIER_DELIVERED_AFTER_ESTIMATE",
+                "rank": 1
+            }
+        ],
+        "responsible_parties": [
+            {
+                "party_type": "logistics_provider",
+                "party_id": "LOGISTICS_PROVIDER"
+            }
+        ]
+    },
+    "evidence_ids": [
+        "order:4274ff4a5df607e75b32b80e2f8eda3f",
+        "item:4274ff4a5df607e75b32b80e2f8eda3f:1",
+        "payment:4274ff4a5df607e75b32b80e2f8eda3f:1",
+        "seller:88ae906ea2acf6971f26c3e8b7cb4357",
+        "policy:CARRIER_DELIVERED_AFTER_ESTIMATE"
+    ],
+    "financial_resolution": {
+        "currency": "BRL",
+        "item_total_brl": 82.0,
+        "freight_total_brl": 7.44,
+        "payment_total_brl": 89.44,
+        "recommended_refund_brl": 7.44
+    },
+    "resolution_actions": [
+        "refund_freight"
+    ]
 }

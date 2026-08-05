@@ -1,33 +1,53 @@
 {
     "case_id": "EC_044",
-    "policy_version": "EC_POLICY_V1",
     "assessment": {
         "primary_issue": "late_delivery_seller",
         "case_status": "action_required",
-        "root_cause": {
-            "code": "SELLER_HANDOFF_AFTER_LIMIT",
-            "responsible_parties": [
-                {
-                    "party_type": "seller",
-                    "party_id": "4a3ca9315b744ce9f8e9374361493884"
-                }
-            ]
-        }
+        "confidence": 1.0
     },
-    "resolution": {
-        "recommended_refund_brl": 15.1,
-        "actions": [
-            "refund_freight"
+    "affected_entities": {
+        "order_ids": [
+            "d671370d11048a2dab56335d3d91823e"
         ],
-        "explanation": "Order delivered late to customer due to seller 4a3ca9315b744ce9f8e9374361493884 handoff after shipping limit date."
-    },
-    "evidence": {
-        "evidence_ids": [
-            "order_timestamp:d671370d11048a2dab56335d3d91823e:order_delivered_customer_date:2017-12-29 20:18:52",
-            "order_timestamp:d671370d11048a2dab56335d3d91823e:order_estimated_delivery_date:2017-12-19 00:00:00",
-            "order_timestamp:d671370d11048a2dab56335d3d91823e:order_delivered_carrier_date:2017-11-30 18:44:40",
-            "order_item_seller:d671370d11048a2dab56335d3d91823e:1:4a3ca9315b744ce9f8e9374361493884",
-            "shipping_limit:d671370d11048a2dab56335d3d91823e:1:2017-11-30 08:15:27"
+        "item_ids": [
+            "d671370d11048a2dab56335d3d91823e:1"
+        ],
+        "seller_ids": [
+            "4a3ca9315b744ce9f8e9374361493884"
+        ],
+        "payment_ids": [
+            "d671370d11048a2dab56335d3d91823e:1"
         ]
-    }
+    },
+    "root_cause_analysis": {
+        "ranked_causes": [
+            {
+                "cause_code": "SELLER_HANDOFF_AFTER_LIMIT",
+                "rank": 1
+            }
+        ],
+        "responsible_parties": [
+            {
+                "party_type": "seller",
+                "party_id": "4a3ca9315b744ce9f8e9374361493884"
+            }
+        ]
+    },
+    "evidence_ids": [
+        "order:d671370d11048a2dab56335d3d91823e",
+        "item:d671370d11048a2dab56335d3d91823e:1",
+        "payment:d671370d11048a2dab56335d3d91823e:1",
+        "seller:4a3ca9315b744ce9f8e9374361493884",
+        "policy:SELLER_HANDOFF_AFTER_LIMIT"
+    ],
+    "financial_resolution": {
+        "currency": "BRL",
+        "item_total_brl": 37.0,
+        "freight_total_brl": 15.1,
+        "payment_total_brl": 52.1,
+        "recommended_refund_brl": 15.1
+    },
+    "resolution_actions": [
+        "refund_freight"
+    ]
 }

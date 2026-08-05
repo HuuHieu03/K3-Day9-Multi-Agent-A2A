@@ -1,120 +1,116 @@
 import re
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 
 class EvidenceBuilder:
     """
-    Module chịu trách nhiệm sinh và kiểm duyệt 5 chuỗi định dạng Evidence ID chuẩn theo đề bài.
-    Mục đích lớn nhất là:
-    1. Tránh cho các LLM Sub-Agents tự ý tạo ra Evidence ID sai format hoặc suy đoán dữ liệu ảo (Hallucination).
-    2. Kiểm duyệt chặt chẽ bằng Regex (Validator) nhằm loại bỏ hoàn toàn lỗi False Positive (FP).
+    EvidenceBuilder - Xây dựng và kiểm duyệt danh sách Evidence ID chuẩn xác 100% theo Mục 5 README.md.
+    Chỉ cho phép 5 khuôn định dạng hợp lệ duy nhất:
+      1. order:<order_id>
+      2. item:<order_id>:<order_item_id>
+      3. payment:<order_id>:<payment_sequential>
+      4. seller:<seller_id>
+      5. policy:<root_cause_code>
+    Bất kỳ định dạng sai nào cũng sẽ bị cản ngục loại trừ để bảo vệ điểm số, tránh 100% lỗi False Positive.
     """
-    
-    # 5 chuỗi Regex chuẩn hóa cho 5 định dạng Evidence ID
-    REGEX_PATTERNS = {
-        "order_status": re.compile(r"^order_status:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+$"),
-        "order_timestamp": re.compile(r"^order_timestamp:[a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+:.+$"),
-        "order_item_seller": re.compile(r"^order_item_seller:[a-zA-Z0-9_-]+:\d+:[a-zA-Z0-9_-]+$"),
-        "shipping_limit": re.compile(r"^shipping_limit:[a-zA-Z0-9_-]+:\d+:.+$"),
-        "payment_row": re.compile(r"^payment_row:[a-zA-Z0-9_-]+:\d+:[a-zA-Z0-9_-]+:\d+(\.\d+)?$")
-    }
+    # Bộ 5 biểu thức chính quy (Regex) theo sát Mục 5
+    VALID_REGEXES = [
+        re.compile(r"^order:[a-zA-Z0-9_-]+$"),
+        re.compile(r"^item:[a-zA-Z0-9_-]+:\w+$"),
+        re.compile(r"^payment:[a-zA-Z0-9_-]+:\w+$"),
+        re.compile(r"^seller:[a-zA-Z0-9_-]+$"),
+        re.compile(r"^policy:[a-zA-Z0-9_]+$")
+    ]
+
+    @staticmethod
+    def build_order_evidence(order_id: str) -> str:
+        return f"order:{str(order_id).strip()}"
+
+    @staticmethod
+    def build_item_evidence(order_id: str, order_item_id: Any) -> str:
+        return f"item:{str(order_id).strip()}:{str(order_item_id).strip()}"
+
+    @staticmethod
+    def build_payment_evidence(order_id: str, payment_sequential: Any) -> str:
+        return f"payment:{str(order_id).strip()}:{str(payment_sequential).strip()}"
+
+    @staticmethod
+    def build_seller_evidence(seller_id: str) -> str:
+        return f"seller:{str(seller_id).strip()}"
+
+    @staticmethod
+    def build_policy_evidence(root_cause_code: str) -> str:
+        return f"policy:{str(root_cause_code).strip()}"
 
     @classmethod
-    def build_order_status_evidence(cls, order_id: str, status: str) -> str:
-        return f"order_status:{order_id}:{status}"
-
-    @classmethod
-    def build_timestamp_evidence(cls, order_id: str, field_name: str, timestamp: Any) -> str:
-        return f"order_timestamp:{order_id}:{field_name}:{str(timestamp).strip()}"
-
-    @classmethod
-    def build_item_seller_evidence(cls, order_id: str, item_id: Any, seller_id: str) -> str:
-        return f"order_item_seller:{order_id}:{item_id}:{seller_id}"
-
-    @classmethod
-    def build_shipping_limit_evidence(cls, order_id: str, item_id: Any, shipping_limit_date: Any) -> str:
-        return f"shipping_limit:{order_id}:{item_id}:{str(shipping_limit_date).strip()}"
-
-    @classmethod
-    def build_payment_row_evidence(cls, order_id: str, sequential: Any, payment_type: str, payment_value: Any) -> str:
-        # Chuẩn hóa giá trị số thực của payment_value về float string sạchẽ
-        try:
-            val_str = f"{float(payment_value):.2f}".rstrip("0").rstrip(".") if float(payment_value) == int(float(payment_value)) else f"{float(payment_value):.2f}"
-            # Tuy nhiên trong dữ liệu Olist đôi khi giữ nguyên float, ta có thể dùng str() hoặc f"{float(payment_value):.2f}"
-            # Cần tương thích với cả "183.29" hoặc "50"
-            val_float = float(payment_value)
-            val_repr = f"{val_float:.2f}"
-        except Exception:
-            val_repr = str(payment_value)
-        return f"payment_row:{order_id}:{sequential}:{payment_type}:{val_repr}"
-
-    @classmethod
-    def is_valid_evidence_format(cls, evidence_id: str) -> bool:
-        """
-        Kiểm tra xem một chuỗi Evidence ID có khớp chính xác với 1 trong 5 định dạng hợp lệ hay không.
-        Trả về True nếu đúng định dạng chuẩn, False nếu vi phạm cú pháp.
-        """
-        if not evidence_id or not isinstance(evidence_id, str):
+    def is_valid_evidence(cls, evidence_str: str) -> bool:
+        if not evidence_str or not isinstance(evidence_str, str):
             return False
-        evidence_str = evidence_id.strip()
-        for pattern in cls.REGEX_PATTERNS.values():
-            if pattern.match(evidence_str):
-                return True
-        return False
+        ev = evidence_str.strip()
+        return any(regex.match(ev) is not None for regex in cls.VALID_REGEXES)
 
     @classmethod
-    def filter_valid_evidences(cls, evidence_list: List[str]) -> List[str]:
-        """
-        Lọc danh sách các Evidence IDs từ LLM, chỉ giữ lại những chuỗi hoàn toàn đúng định dạng chuẩn.
-        Hàm này là chốt chặn (gatekeeper) của Verifier Agent nhằm triệt tiêu False Positives.
-        """
-        valid_list = []
-        for ev in evidence_list:
-            ev_clean = ev.strip()
-            if cls.is_valid_evidence_format(ev_clean) and ev_clean not in valid_list:
-                valid_list.append(ev_clean)
-        return valid_list
+    def filter_valid_evidences(cls, evidences: List[str]) -> List[str]:
+        unique_list = []
+        seen = set()
+        for ev in evidences:
+            ev_clean = str(ev).strip()
+            if ev_clean not in seen and cls.is_valid_evidence(ev_clean):
+                seen.add(ev_clean)
+                unique_list.append(ev_clean)
+        # Giới hạn tối đa 10 evidence IDs theo Mục 6 README
+        return unique_list[:10]
 
     @classmethod
-    def extract_evidences_for_issue(cls, issue: str, order_context: Dict[str, Any]) -> List[str]:
+    def extract_evidences_for_issue(cls, primary_issue: str, order_context: Dict[str, Any], root_cause_code: str = "") -> List[str]:
         """
-        Tự động trích xuất các Evidence ID chuẩn xác từ cơ sở dữ liệu RAM theo lỗi (primary_issue).
-        Đây là công cụ hỗ trợ Agent nhanh chóng có đầy đủ bằng chứng thuyết phục 100% không lo Hallucinations.
+        Trích xuất chuỗi bằng chứng hợp lệ từ dữ liệu gốc trên RAM theo ĐÚNG trật tự chuẩn Mục 5 & Mục 6:
+          1. order:<order_id>
+          2. item:<order_id>:<order_item_id> (đã sắp xếp)
+          3. payment:<order_id>:<payment_sequential> (đã sắp xếp)
+          4. seller:<seller_id> (đã sắp xếp)
+          5. policy:<root_cause_code> (luôn đặt ở sau cùng theo mẫu EC_001 Mục 6)
         """
-        if not order_context.get("found") or not order_context.get("order"):
-            return []
+        evidences: List[str] = []
+        if not order_context or not order_context.get("found"):
+            return evidences
 
-        evidences = []
-        order = order_context["order"]
-        order_id = order.get("order_id", "")
+        order = order_context.get("order") or {}
+        order_id = order.get("order_id")
+        if order_id:
+            evidences.append(cls.build_order_evidence(order_id))
+
         items = order_context.get("items", [])
         payments = order_context.get("payments", [])
 
-        # 1. canceled_order_paid & unavailable_order_paid: Cần bằng chứng status + các dòng payment
-        if issue in ["canceled_order_paid", "unavailable_order_paid"]:
-            if order.get("order_status"):
-                evidences.append(cls.build_order_status_evidence(order_id, order["order_status"]))
-            for p in payments:
-                evidences.append(cls.build_payment_row_evidence(order_id, p.get("payment_sequential", 1), p.get("payment_type", ""), p.get("payment_value", 0.0)))
-            return cls.filter_valid_evidences(evidences)
+        # 1. Trích xuất và sắp xếp item evidences
+        item_evs = []
+        for item in items:
+            item_id = item.get("order_item_id")
+            if item_id and order_id:
+                item_evs.append(cls.build_item_evidence(order_id, item_id))
+        item_evs.sort(key=lambda x: (len(x), x))
+        evidences.extend(item_evs)
 
-        # 2. late_delivery_seller & late_delivery_logistics: Cần timestamp giao, dự kiến, carrier, và shipping limit của item
-        if issue in ["late_delivery_seller", "late_delivery_logistics", "unsupported_late_claim"]:
-            for field in ["order_delivered_customer_date", "order_estimated_delivery_date", "order_delivered_carrier_date"]:
-                val = order.get(field)
-                if val and str(val) != "None":
-                    evidences.append(cls.build_timestamp_evidence(order_id, field, val))
-            for item in items:
-                item_id = item.get("order_item_id", 1)
-                seller_id = item.get("seller_id", "")
-                limit_date = item.get("shipping_limit_date")
-                if seller_id:
-                    evidences.append(cls.build_item_seller_evidence(order_id, item_id, seller_id))
-                if limit_date and str(limit_date) != "None":
-                    evidences.append(cls.build_shipping_limit_evidence(order_id, item_id, limit_date))
+        # 2. Trích xuất và sắp xếp payment evidences (đứng trước seller theo chuẩn mẫu Mục 5 & 6)
+        pay_evs = []
+        for pay in payments:
+            pay_seq = pay.get("payment_sequential")
+            if pay_seq is not None and order_id:
+                pay_evs.append(cls.build_payment_evidence(order_id, pay_seq))
+        pay_evs.sort(key=lambda x: (len(x), x))
+        evidences.extend(pay_evs)
 
-        # 3. valid_split_payment & các lỗi tiền bạc: Thêm toàn bộ các bằng chứng payment
-        if issue in ["valid_split_payment"] or not evidences:
-            for p in payments:
-                evidences.append(cls.build_payment_row_evidence(order_id, p.get("payment_sequential", 1), p.get("payment_type", ""), p.get("payment_value", 0.0)))
+        # 3. Trích xuất và sắp xếp seller evidences
+        seller_evs = []
+        for item in items:
+            s_id = item.get("seller_id")
+            if s_id:
+                seller_evs.append(cls.build_seller_evidence(s_id))
+        seller_evs.sort()
+        evidences.extend(seller_evs)
+
+        # 4. Policy evidence đứng sau cùng
+        if root_cause_code:
+            evidences.append(cls.build_policy_evidence(root_cause_code))
 
         return cls.filter_valid_evidences(evidences)

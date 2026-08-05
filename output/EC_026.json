@@ -1,30 +1,53 @@
 {
     "case_id": "EC_026",
-    "policy_version": "EC_POLICY_V1",
     "assessment": {
         "primary_issue": "canceled_order_paid",
         "case_status": "action_required",
-        "root_cause": {
-            "code": "ORDER_CANCELED_AFTER_PAYMENT",
-            "responsible_parties": [
-                {
-                    "party_type": "platform",
-                    "party_id": "OLIST_PLATFORM"
-                }
-            ]
-        }
+        "confidence": 1.0
     },
-    "resolution": {
-        "recommended_refund_brl": 142.34,
-        "actions": [
-            "issue_full_refund"
+    "affected_entities": {
+        "order_ids": [
+            "966f96af9d189dc428ff04ebbca821b8"
         ],
-        "explanation": "Order status is canceled and customer paid 142.34 BRL."
-    },
-    "evidence": {
-        "evidence_ids": [
-            "order_status:966f96af9d189dc428ff04ebbca821b8:canceled",
-            "payment_row:966f96af9d189dc428ff04ebbca821b8:1:credit_card:142.34"
+        "item_ids": [
+            "966f96af9d189dc428ff04ebbca821b8:1"
+        ],
+        "seller_ids": [
+            "5f2684dab12e59f83bef73ae57724e45"
+        ],
+        "payment_ids": [
+            "966f96af9d189dc428ff04ebbca821b8:1"
         ]
-    }
+    },
+    "root_cause_analysis": {
+        "ranked_causes": [
+            {
+                "cause_code": "ORDER_CANCELED_AFTER_PAYMENT",
+                "rank": 1
+            }
+        ],
+        "responsible_parties": [
+            {
+                "party_type": "platform",
+                "party_id": "OLIST_PLATFORM"
+            }
+        ]
+    },
+    "evidence_ids": [
+        "order:966f96af9d189dc428ff04ebbca821b8",
+        "item:966f96af9d189dc428ff04ebbca821b8:1",
+        "payment:966f96af9d189dc428ff04ebbca821b8:1",
+        "seller:5f2684dab12e59f83bef73ae57724e45",
+        "policy:ORDER_CANCELED_AFTER_PAYMENT"
+    ],
+    "financial_resolution": {
+        "currency": "BRL",
+        "item_total_brl": 129.9,
+        "freight_total_brl": 12.44,
+        "payment_total_brl": 142.34,
+        "recommended_refund_brl": 142.34
+    },
+    "resolution_actions": [
+        "issue_full_refund"
+    ]
 }

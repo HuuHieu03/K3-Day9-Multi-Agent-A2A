@@ -1,28 +1,48 @@
 {
     "case_id": "EC_048",
-    "policy_version": "EC_POLICY_V1",
     "assessment": {
         "primary_issue": "unsupported_late_claim",
         "case_status": "no_action",
-        "root_cause": {
-            "code": "DELIVERY_WITHIN_ESTIMATE",
-            "responsible_parties": []
-        }
+        "confidence": 1.0
     },
-    "resolution": {
-        "recommended_refund_brl": 0.0,
-        "actions": [
-            "reject_late_refund"
+    "affected_entities": {
+        "order_ids": [
+            "adc253f1977c81c2c29dc7b9dd23d538"
         ],
-        "explanation": "Order delivered on or before estimated date (2018-07-05 19:41:59 <= 2018-07-30 00:00:00) and financial amounts reconcile."
-    },
-    "evidence": {
-        "evidence_ids": [
-            "order_timestamp:adc253f1977c81c2c29dc7b9dd23d538:order_delivered_customer_date:2018-07-05 19:41:59",
-            "order_timestamp:adc253f1977c81c2c29dc7b9dd23d538:order_estimated_delivery_date:2018-07-30 00:00:00",
-            "order_timestamp:adc253f1977c81c2c29dc7b9dd23d538:order_delivered_carrier_date:2018-06-29 15:45:00",
-            "order_item_seller:adc253f1977c81c2c29dc7b9dd23d538:1:c3867b4666c7d76867627c2f7fb22e21",
-            "shipping_limit:adc253f1977c81c2c29dc7b9dd23d538:1:2018-07-04 22:15:16"
+        "item_ids": [
+            "adc253f1977c81c2c29dc7b9dd23d538:1"
+        ],
+        "seller_ids": [
+            "c3867b4666c7d76867627c2f7fb22e21"
+        ],
+        "payment_ids": [
+            "adc253f1977c81c2c29dc7b9dd23d538:1"
         ]
-    }
+    },
+    "root_cause_analysis": {
+        "ranked_causes": [
+            {
+                "cause_code": "DELIVERY_WITHIN_ESTIMATE",
+                "rank": 1
+            }
+        ],
+        "responsible_parties": []
+    },
+    "evidence_ids": [
+        "order:adc253f1977c81c2c29dc7b9dd23d538",
+        "item:adc253f1977c81c2c29dc7b9dd23d538:1",
+        "payment:adc253f1977c81c2c29dc7b9dd23d538:1",
+        "seller:c3867b4666c7d76867627c2f7fb22e21",
+        "policy:DELIVERY_WITHIN_ESTIMATE"
+    ],
+    "financial_resolution": {
+        "currency": "BRL",
+        "item_total_brl": 43.0,
+        "freight_total_brl": 18.4,
+        "payment_total_brl": 61.4,
+        "recommended_refund_brl": 0.0
+    },
+    "resolution_actions": [
+        "reject_late_refund"
+    ]
 }

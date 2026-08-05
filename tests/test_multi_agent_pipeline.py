@@ -33,16 +33,19 @@ def test_full_multi_agent_pipeline():
     duration_001 = time.time() - start_time
     print(f"[Test] Pipeline execution time for EC_001: {duration_001:.4f}s")
 
-    # Verify JSON Schema exactness (Section 5 of README)
+    # Verify JSON Schema exactness (Section 6 of README)
     assert "case_id" in result_001
-    assert "policy_version" in result_001
     assert "assessment" in result_001
-    assert "resolution" in result_001
-    assert "evidence" in result_001
+    assert "affected_entities" in result_001
+    assert "root_cause_analysis" in result_001
+    assert "evidence_ids" in result_001
+    assert "financial_resolution" in result_001
+    assert "resolution_actions" in result_001
+
     assert result_001["assessment"]["primary_issue"] == "late_delivery_seller"
-    assert result_001["resolution"]["recommended_refund_brl"] > 0
-    assert len(result_001["evidence"]["evidence_ids"]) > 0
-    print(" -> Real Case EC_001 Processing (Diagnosed as late_delivery_seller) & JSON Schema Exactness: PASSED")
+    assert result_001["financial_resolution"]["recommended_refund_brl"] > 0
+    assert len(result_001["evidence_ids"]) > 0
+    print(" -> Real Case EC_001 Processing (Diagnosed as late_delivery_seller) & Section 6 Schema Exactness: PASSED")
 
     # =========================================================================
     # TEST 2: Simulate Unresolvable Error (Non-existent Order ID) -> Human Escalation
