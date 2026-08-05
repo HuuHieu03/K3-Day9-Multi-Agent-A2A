@@ -10,9 +10,9 @@
     "total_cases_input": 50,
     "processed_cases_output": 50,
     "execution_metrics": {
-        "database_loading_seconds": 41.0667,
-        "total_processing_seconds": 484.3185,
-        "average_time_per_case_seconds": 9.6848
+        "database_loading_seconds": 17.5427,
+        "total_processing_seconds": 15.079,
+        "average_time_per_case_seconds": 0.3006
     },
     "issue_distribution": {
         "late_delivery_seller": 8,

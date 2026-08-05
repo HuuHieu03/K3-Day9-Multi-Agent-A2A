@@ -9,15 +9,9 @@
         "order_ids": [
             "44a03ff139461361ec4cce7949663c2f"
         ],
-        "item_ids": [
-            "44a03ff139461361ec4cce7949663c2f:1"
-        ],
-        "seller_ids": [
-            "da8622b14eb17ae2831f4ac5b9dab84a"
-        ],
-        "payment_ids": [
-            "44a03ff139461361ec4cce7949663c2f:1"
-        ]
+        "item_ids": [],
+        "seller_ids": [],
+        "payment_ids": []
     },
     "root_cause_analysis": {
         "ranked_causes": [
@@ -30,8 +24,6 @@
     },
     "evidence_ids": [
         "order:44a03ff139461361ec4cce7949663c2f",
-        "item:44a03ff139461361ec4cce7949663c2f:1",
-        "payment:44a03ff139461361ec4cce7949663c2f:1",
         "policy:DELIVERY_WITHIN_ESTIMATE"
     ],
     "financial_resolution": {

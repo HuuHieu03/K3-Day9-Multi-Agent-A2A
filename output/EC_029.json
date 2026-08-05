@@ -17,9 +17,7 @@
         "seller_ids": [
             "88460e8ebdecbfecb5f9601833981930"
         ],
-        "payment_ids": [
-            "5c932e0a181410b67c77daaed30991af:1"
-        ]
+        "payment_ids": []
     },
     "root_cause_analysis": {
         "ranked_causes": [
@@ -40,7 +38,6 @@
         "item:5c932e0a181410b67c77daaed30991af:1",
         "item:5c932e0a181410b67c77daaed30991af:2",
         "item:5c932e0a181410b67c77daaed30991af:3",
-        "payment:5c932e0a181410b67c77daaed30991af:1",
         "seller:88460e8ebdecbfecb5f9601833981930",
         "policy:SELLER_HANDOFF_AFTER_LIMIT"
     ],

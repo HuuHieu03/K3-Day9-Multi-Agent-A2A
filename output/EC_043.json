@@ -15,9 +15,7 @@
         "seller_ids": [
             "46dc3b2cc0980fb8ec44634e21d2718e"
         ],
-        "payment_ids": [
-            "3ef6bcdda6193f8657168ba7e8b3e948:1"
-        ]
+        "payment_ids": []
     },
     "root_cause_analysis": {
         "ranked_causes": [
@@ -36,7 +34,6 @@
     "evidence_ids": [
         "order:3ef6bcdda6193f8657168ba7e8b3e948",
         "item:3ef6bcdda6193f8657168ba7e8b3e948:1",
-        "payment:3ef6bcdda6193f8657168ba7e8b3e948:1",
         "seller:46dc3b2cc0980fb8ec44634e21d2718e",
         "policy:SELLER_HANDOFF_AFTER_LIMIT"
     ],
