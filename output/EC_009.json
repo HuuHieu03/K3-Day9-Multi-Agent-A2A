@@ -1,0 +1,33 @@
+{
+    "case_id": "EC_009",
+    "policy_version": "EC_POLICY_V1",
+    "assessment": {
+        "primary_issue": "late_delivery_logistics",
+        "case_status": "action_required",
+        "root_cause": {
+            "code": "CARRIER_DELIVERED_AFTER_ESTIMATE",
+            "responsible_parties": [
+                {
+                    "party_type": "logistics_provider",
+                    "party_id": "LOGISTICS_PROVIDER"
+                }
+            ]
+        }
+    },
+    "resolution": {
+        "recommended_refund_brl": 12.36,
+        "actions": [
+            "refund_freight"
+        ],
+        "explanation": "Order delivered late to customer by logistics provider while seller handed off on or before shipping limit date."
+    },
+    "evidence": {
+        "evidence_ids": [
+            "order_timestamp:3aaee056441dcae251f360b1c71a7279:order_delivered_customer_date:2018-03-21 13:43:25",
+            "order_timestamp:3aaee056441dcae251f360b1c71a7279:order_estimated_delivery_date:2018-03-09 00:00:00",
+            "order_timestamp:3aaee056441dcae251f360b1c71a7279:order_delivered_carrier_date:2018-02-20 17:45:15",
+            "order_item_seller:3aaee056441dcae251f360b1c71a7279:1:c826c40d7b19f62a09e2d7c5e7295ee2",
+            "shipping_limit:3aaee056441dcae251f360b1c71a7279:1:2018-02-21 23:15:35"
+        ]
+    }
+}

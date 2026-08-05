@@ -1,0 +1,25 @@
+{
+    "case_id": "EC_020",
+    "policy_version": "EC_POLICY_V1",
+    "assessment": {
+        "primary_issue": "valid_split_payment",
+        "case_status": "no_action",
+        "root_cause": {
+            "code": "MULTIPLE_PAYMENTS_RECONCILED",
+            "responsible_parties": []
+        }
+    },
+    "resolution": {
+        "recommended_refund_brl": 0.0,
+        "actions": [
+            "explain_valid_split_payment"
+        ],
+        "explanation": "Order has 2 split payments totaling 269.08 BRL matching item+freight total (269.08 BRL) within 0.10 BRL tolerance."
+    },
+    "evidence": {
+        "evidence_ids": [
+            "payment_row:96087ef44ca9abdbc4c372a3dd3c859f:2:voucher:81.98",
+            "payment_row:96087ef44ca9abdbc4c372a3dd3c859f:1:credit_card:187.10"
+        ]
+    }
+}

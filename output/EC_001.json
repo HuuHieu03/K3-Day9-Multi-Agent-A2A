@@ -1,0 +1,33 @@
+{
+    "case_id": "EC_001",
+    "policy_version": "EC_POLICY_V1",
+    "assessment": {
+        "primary_issue": "late_delivery_seller",
+        "case_status": "action_required",
+        "root_cause": {
+            "code": "SELLER_HANDOFF_AFTER_LIMIT",
+            "responsible_parties": [
+                {
+                    "party_type": "seller",
+                    "party_id": "f7496d659ca9fdaf323c0aae84176632"
+                }
+            ]
+        }
+    },
+    "resolution": {
+        "recommended_refund_brl": 12.04,
+        "actions": [
+            "refund_freight"
+        ],
+        "explanation": "Order delivered late to customer due to seller f7496d659ca9fdaf323c0aae84176632 handoff after shipping limit date."
+    },
+    "evidence": {
+        "evidence_ids": [
+            "order_timestamp:e2a03ccf5ea816036608b2d8c3ab8e60:order_delivered_customer_date:2017-12-15 18:56:35",
+            "order_timestamp:e2a03ccf5ea816036608b2d8c3ab8e60:order_estimated_delivery_date:2017-12-12 00:00:00",
+            "order_timestamp:e2a03ccf5ea816036608b2d8c3ab8e60:order_delivered_carrier_date:2017-12-13 13:45:24",
+            "order_item_seller:e2a03ccf5ea816036608b2d8c3ab8e60:1:f7496d659ca9fdaf323c0aae84176632",
+            "shipping_limit:e2a03ccf5ea816036608b2d8c3ab8e60:1:2017-12-04 11:50:50"
+        ]
+    }
+}

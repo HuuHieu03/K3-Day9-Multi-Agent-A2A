@@ -1,0 +1,30 @@
+{
+    "case_id": "EC_021",
+    "policy_version": "EC_POLICY_V1",
+    "assessment": {
+        "primary_issue": "canceled_order_paid",
+        "case_status": "action_required",
+        "root_cause": {
+            "code": "ORDER_CANCELED_AFTER_PAYMENT",
+            "responsible_parties": [
+                {
+                    "party_type": "platform",
+                    "party_id": "OLIST_PLATFORM"
+                }
+            ]
+        }
+    },
+    "resolution": {
+        "recommended_refund_brl": 38.86,
+        "actions": [
+            "issue_full_refund"
+        ],
+        "explanation": "Order status is canceled and customer paid 38.86 BRL."
+    },
+    "evidence": {
+        "evidence_ids": [
+            "order_status:13d341318c77969f10d77e1382957542:canceled",
+            "payment_row:13d341318c77969f10d77e1382957542:1:boleto:38.86"
+        ]
+    }
+}

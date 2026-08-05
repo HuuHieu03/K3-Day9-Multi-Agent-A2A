@@ -1,0 +1,30 @@
+{
+    "case_id": "EC_002",
+    "policy_version": "EC_POLICY_V1",
+    "assessment": {
+        "primary_issue": "unsupported_late_claim",
+        "case_status": "no_action",
+        "root_cause": {
+            "code": "DELIVERY_WITHIN_ESTIMATE",
+            "responsible_parties": []
+        }
+    },
+    "resolution": {
+        "recommended_refund_brl": 0.0,
+        "actions": [
+            "reject_late_refund"
+        ],
+        "explanation": "Order delivered on or before estimated date (2018-01-31 21:34:47 <= 2018-02-09 00:00:00) and financial amounts reconcile."
+    },
+    "evidence": {
+        "evidence_ids": [
+            "order_timestamp:8067c5e4834f3c0a3c8a4e921d65c5b1:order_delivered_customer_date:2018-01-31 21:34:47",
+            "order_timestamp:8067c5e4834f3c0a3c8a4e921d65c5b1:order_estimated_delivery_date:2018-02-09 00:00:00",
+            "order_timestamp:8067c5e4834f3c0a3c8a4e921d65c5b1:order_delivered_carrier_date:2018-01-29 17:58:40",
+            "order_item_seller:8067c5e4834f3c0a3c8a4e921d65c5b1:1:6973a06f484aacf400ece213dbf3d946",
+            "shipping_limit:8067c5e4834f3c0a3c8a4e921d65c5b1:1:2018-01-31 16:39:42",
+            "order_item_seller:8067c5e4834f3c0a3c8a4e921d65c5b1:2:6973a06f484aacf400ece213dbf3d946",
+            "shipping_limit:8067c5e4834f3c0a3c8a4e921d65c5b1:2:2018-01-31 16:39:42"
+        ]
+    }
+}

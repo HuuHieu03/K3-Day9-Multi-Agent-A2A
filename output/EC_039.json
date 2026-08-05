@@ -1,0 +1,28 @@
+{
+    "case_id": "EC_039",
+    "policy_version": "EC_POLICY_V1",
+    "assessment": {
+        "primary_issue": "unsupported_late_claim",
+        "case_status": "no_action",
+        "root_cause": {
+            "code": "DELIVERY_WITHIN_ESTIMATE",
+            "responsible_parties": []
+        }
+    },
+    "resolution": {
+        "recommended_refund_brl": 0.0,
+        "actions": [
+            "reject_late_refund"
+        ],
+        "explanation": "Order delivered on or before estimated date (2018-06-04 12:14:43 <= 2018-06-08 00:00:00) and financial amounts reconcile."
+    },
+    "evidence": {
+        "evidence_ids": [
+            "order_timestamp:44a03ff139461361ec4cce7949663c2f:order_delivered_customer_date:2018-06-04 12:14:43",
+            "order_timestamp:44a03ff139461361ec4cce7949663c2f:order_estimated_delivery_date:2018-06-08 00:00:00",
+            "order_timestamp:44a03ff139461361ec4cce7949663c2f:order_delivered_carrier_date:2018-05-25 11:13:00",
+            "order_item_seller:44a03ff139461361ec4cce7949663c2f:1:da8622b14eb17ae2831f4ac5b9dab84a",
+            "shipping_limit:44a03ff139461361ec4cce7949663c2f:1:2018-05-25 17:16:46"
+        ]
+    }
+}

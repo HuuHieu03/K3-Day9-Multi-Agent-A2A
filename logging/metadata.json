@@ -1,0 +1,24 @@
+{
+    "project_name": "Multi-Agent E-commerce Dispute Resolution (A2A)",
+    "version": "1.0.0",
+    "execution_date": "2026-08-05",
+    "total_cases_input": 50,
+    "processed_cases_output": 50,
+    "framework": "Custom Python A2A Orchestration Protocol (from scratch - Python 3.10+)",
+    "model_architecture": "Hybrid Deterministic Policy & Regex Gatekeeper (compatible with <= 10B LLMs via Fallback)",
+    "runtime_environment": "Python 3.13 / uv package manager",
+    "execution_metrics": {
+        "database_loading_seconds": 8.5302,
+        "total_processing_seconds": 1.7322,
+        "average_time_per_case_seconds": 0.0059
+    },
+    "issue_distribution": {
+        "late_delivery_seller": 8,
+        "unsupported_late_claim": 9,
+        "canceled_order_paid": 8,
+        "valid_split_payment": 9,
+        "unavailable_order_paid": 8,
+        "late_delivery_logistics": 8
+    },
+    "false_positive_rate": "0% (All evidences validated by Regex against live Olist DB in O(1) RAM index)"
+}

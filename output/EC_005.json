@@ -1,0 +1,30 @@
+{
+    "case_id": "EC_005",
+    "policy_version": "EC_POLICY_V1",
+    "assessment": {
+        "primary_issue": "unavailable_order_paid",
+        "case_status": "action_required",
+        "root_cause": {
+            "code": "ORDER_UNAVAILABLE_AFTER_PAYMENT",
+            "responsible_parties": [
+                {
+                    "party_type": "platform",
+                    "party_id": "OLIST_PLATFORM"
+                }
+            ]
+        }
+    },
+    "resolution": {
+        "recommended_refund_brl": 1191.5,
+        "actions": [
+            "issue_full_refund"
+        ],
+        "explanation": "Order status is unavailable and customer paid 1191.5 BRL."
+    },
+    "evidence": {
+        "evidence_ids": [
+            "order_status:9a31fd9d697e9670777501f720773fd9:unavailable",
+            "payment_row:9a31fd9d697e9670777501f720773fd9:1:boleto:1191.50"
+        ]
+    }
+}
