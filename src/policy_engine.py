@@ -1,5 +1,4 @@
 from typing import Dict, Any, List, Optional
-import pandas as pd
 
 class ECPolicyV1Engine:
     """
@@ -12,14 +11,14 @@ class ECPolicyV1Engine:
 
     def _compare_timestamps_greater(self, ts1: Optional[str], ts2: Optional[str]) -> bool:
         """
-        So sánh hai timestamp dưới dạng chuỗi hoặc datetime từ CSV.
+        So sánh hai timestamp dưới dạng chuỗi từ CSV.
         Trả về True nếu ts1 > ts2 (ví dụ: giao thực tế muộn hơn dự kiến hoặc hạn bàn giao).
         Nếu 1 trong 2 giá trị None hoặc rỗng, trả về False.
         """
         if not ts1 or not ts2 or ts1 == "None" or ts2 == "None":
             return False
         try:
-            # So sánh chuỗi ISO chuẩn hoặc parse qua pandas để đảm bảo không sai sót định dạng
+            # So sánh chuỗi ISO chuẩn: đảm bảo không sai sót định dạng
             return str(ts1).strip() > str(ts2).strip()
         except Exception:
             return False
